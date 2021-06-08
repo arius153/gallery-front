@@ -1,0 +1,17 @@
+<div style="max-width: 1000px;" class="center_div border outer-box">
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+        <div class="form-group top-buffer">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" placeholder="User" [(ngModel)]="model.username" required>
+        </div>
+        <div class="form-group top-buffer">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" [(ngModel)]="model.password" required>
+        </div>
+        <div class="form-group top-buffer">
+            <label for="repeated-password">Password:</label>
+            <input type="password" class="form-control" id="repeated-password" placeholder="Repeated Password" [(ngModel)]="model.repeatedPassword" required>
+        </div>
+        <button type="submit" class="btn btn-success top-buffer">Sign up</button>
+    </form>
+</div>

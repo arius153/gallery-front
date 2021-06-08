@@ -1,0 +1,11 @@
+.center_div{
+    margin: 0 auto;
+    width:80%; /* value of your choice which suits your alignment */
+    
+}
+.top-buffer { margin-top:10px; }
+
+.outer-box {
+    margin-top: 20px;
+    padding: 10px;
+}

@@ -1,0 +1,109 @@
+<div *ngIf="image" class="card border-secondary text-center" style="max-width: 1000px;">
+    <div class="card-img-top" style="background-color:#f8f4f4;">
+        <!-- <a href="#" (click)="show()"> -->
+            <img (click)="show()" class="img-fluid" *ngIf="!selectedFile" src="{{'data:image/jpg;base64,' + image.content}}" />
+            <img class="img-fluid" *ngIf="selectedFile" [src]="image64" />
+        <!-- </a> -->
+    </div>
+    <div *ngIf="!isModifyEnabled" class="card-body">
+
+        <h5 class="card-title">{{image.name}} | {{image.date}}</h5>
+        <p class="card-text">{{image.description}}</p>
+    </div>
+    <div *ngIf="isModifyEnabled" class="card-body">
+        <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" class="form-control" [(ngModel)]="model.name" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" class="form-control" name="description" [(ngModel)]="model.description" required>
+            </div>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" class="form-control" name="date" [(ngModel)]="model.date" required>
+            </div>
+            <div class="form-group">
+                <label>Tags</label>
+                <input type="text" #tagsInput class="form-control" name="tags" [(ngModel)]="model.tags"
+                    (change)="slice(tagsInput.value)" required>
+            </div>
+            <div class="custom-file">
+                <label class="form-label" for="customFile">Default file input example</label>
+                <input #imageInput type="file" class="form-control" accept="image/*" id="customFile"
+                    (change)="imageChoice($event)" name="image" />
+            </div>
+            <button type="submit" class="btn btn-success">Save</button>
+        </form>
+    </div>
+    <div *ngIf="!isModifyEnabled" class="card-footer "><a *ngFor="let tag of image.tags"
+            routerLink="/search/{{tag.text}}"><span class="badge btn-secondary margin-left">{{tag.text}}</span></a>
+    </div>
+    <button class="btn btn-secondary" (click)="enableModify()">Modify</button>
+    <button class="btn btn-primary" (click)="goBack()">Go back</button>
+</div>
+
+<!-- <div *ngIf="image" [style.display]="showModal ? 'block' : 'none'" class="modal" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <img src="{{'data:image/jpg;base64,' + image.content}}" >
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click) = "hide()">Close</button>
+        </div>
+      </div>
+    </div>
+    </div> -->
+
+    <div *ngIf="image" style="width: 2000px;" [style.display]="showModal ? 'block' : 'none'" class="modal" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="myModalLabel">Image preview</h4>
+            </div>
+            <div class="modal-body">
+              <img class="img-fluid" src="{{'data:image/jpg;base64,' + image.content}}">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal" (click) = "hide()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Open modal for @fat</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
