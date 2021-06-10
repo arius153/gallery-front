@@ -16,7 +16,7 @@ export class LogInComponent {
   constructor(private authService: AutheticationService, private router: Router) { }
 
   onSubmit(form: NgForm) {
-    console.log(this.model);
+
     if (form.valid)
     {
       this.authService.login(this.model).subscribe(x => {

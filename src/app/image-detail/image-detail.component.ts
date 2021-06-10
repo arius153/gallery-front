@@ -61,13 +61,13 @@ export class ImageDetailComponent implements OnInit {
   
   slice(tags: string): void {
     this.model.tags = tags.split(/[ ,]+/);
-    console.log(this.model.tags);
+
 
   }
 
   onSubmit(form: NgForm) {
     
-    console.log("form");
+
 
     if (form.valid && this.image) {
       this.imageService.updateImage(this.image.id,this.selectedFile, this.model)
@@ -83,7 +83,7 @@ export class ImageDetailComponent implements OnInit {
     let reader = new FileReader();
     reader.readAsDataURL(imageInput.target.files[0]);
     reader.onload = () => {
-      console.log(reader.result);
+
       this.image64 = reader.result as string;
     }
   }

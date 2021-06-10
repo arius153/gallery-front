@@ -28,7 +28,7 @@ export class AddImageComponent   {
     private location: Location){};
 
   onSubmit(form: NgForm) {
-    console.log("mes esame add image componento onsubmit funkcijoj");
+  
     if (form.valid) {
       if (this.selectedFile)
       {
@@ -44,7 +44,7 @@ export class AddImageComponent   {
 
   slice(tags: string): void {
     this.model.tags = tags.split(/[ ,]+/);
-    console.log(this.model.tags);
+
 
   }
 
@@ -53,7 +53,7 @@ export class AddImageComponent   {
     let reader = new FileReader();
     reader.readAsDataURL(imageInput.target.files[0]);
     reader.onload = () => {
-      console.log(reader.result);
+     
       this.image64 = reader.result as string;
     }
   }

@@ -12,8 +12,11 @@ import { AddImageComponent } from './add-image/add-image.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AuthInterceptor } from './_helpers/auth.interceptor';
-import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { UsernameTakenDirective } from './_directives/username-taken.directive';
+import { PasswordMatchDirective } from './_directives/password-match.directive';
+
+
 
 @NgModule({
   declarations: [
@@ -24,7 +27,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ImagesSearchComponent,
     AddImageComponent,
     LogInComponent,
-    SignUpComponent
+    SignUpComponent,
+    UsernameTakenDirective,
+    PasswordMatchDirective
   ],
   imports: [
     BrowserModule,
@@ -34,8 +39,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatPaginatorModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

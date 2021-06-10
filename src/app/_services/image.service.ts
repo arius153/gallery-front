@@ -25,8 +25,6 @@ export class ImageService {
     if (page)
     {
       pageForHttpRequest = new HttpParams().set("page", page);
-      console.log(`Mes esam puslapy: ` + page);
-      console.log(pageForHttpRequest.toString());
     }
     if (page && searchParams) {
       pageForHttpRequest = new HttpParams().set("page",page).set("searchParams", searchParams);
@@ -34,13 +32,13 @@ export class ImageService {
     
     
     return this.http.get<ImageResponseDTO[]>(this.imagesUrl, {params: pageForHttpRequest}).pipe(
-      tap(_ => console.log("we are trying to get images"))
+      
     );
   }
 
   getImage(id: number): Observable<ImageResponseDTO> {
     return this.http.get<ImageResponseDTO>(this.imagesUrl + `/data/${id}`).pipe(
-      tap(_ => console.log(`we are trying to get an image with id: ${id}`))
+      
     );
   }
 
@@ -50,21 +48,19 @@ export class ImageService {
       return of([]);
     }
     return this.http.get<ImageResponseDTO[]>(this.imagesUrl + `?searchParams=${term}`).pipe(
-      tap(x => x.length ? 
-        console.log(`found heroes matching ${term}`) :
-        console.log(`no heroes matching "${term}"`))
+      
     );
   }
 
   deleteImage(id: number): Observable<ImageResponseDTO> {
     const url = this.imagesUrl + `/${id}`;
     return this.http.delete<ImageResponseDTO>(url).pipe(
-      tap(_ => console.log(`Deleted image with id=${id}`))
+     
     );
   }
 
   uploadImage(model: ImageAddDTO, selectedFile: File): Observable<number> {
-    console.log("Mes esame servise?");
+    
     const formData = new FormData();
     formData.append("image", selectedFile);
     formData.append("imageAddDTO", JSON.stringify(model)); 

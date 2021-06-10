@@ -25,9 +25,7 @@ export class ImagesComponent implements OnInit {
     this.imageService.getCount().subscribe(count => this.length = count);
   }
 
-  onClick(image: ImageResponseDTO): void {
-    console.log(`clicked image with id: ${image.id}`);
-  }
+ 
 
   delete(image: ImageResponseDTO): void {
     this.images = this.images.filter(i => i !== image);
