@@ -1,4 +1,4 @@
-<div style="max-width: 1000px;" class="center_div border outer-box">
+<div style="max-width: 1000px;" class=" center_div border outer-box">
     <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm, $event)">
         <div class="form-group top-buffer">
             <label for="username">Username:</label>
@@ -20,9 +20,7 @@
                 </div>
             </div>
         </div>
-
         <button type="submit" class="btn btn-success top-buffer" [disabled]="!userForm.valid">Log in</button>
-    
         <div *ngIf="showErrorMessage" class="alert alert-danger">
             Failed to log in! try again?
         </div>

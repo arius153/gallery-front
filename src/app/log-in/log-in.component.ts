@@ -19,16 +19,12 @@ export class LogInComponent {
 
   onSubmit(form: NgForm, event: Event) {
     event.preventDefault();
-    if (form.valid)
-    {
+    if (form.valid) {
       this.authService.login(this.model).subscribe(x => {
         this.router.navigate(['search']);
       }, (error) => {
         this.showErrorMessage = true;
-
       });
     }
-    
   }
-
 }

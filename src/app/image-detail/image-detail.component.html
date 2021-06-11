@@ -1,4 +1,4 @@
-<div *ngIf="image" class="card border-secondary text-center" style="max-width: 1000px;">
+<div *ngIf="image" class="card border-secondary text-center single-card-page" style="max-width: 1000px;">
     <div class="card-img-top" style="background-color:#f8f4f4;">
         <!-- <a href="#" (click)="show()"> -->
             <img (click)="show()" class="img-fluid" *ngIf="!selectedFile" src="{{'data:image/jpg;base64,' + image.content}}" />
@@ -12,29 +12,36 @@
     </div>
     <div *ngIf="isModifyEnabled" class="card-body">
         <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" name="name" class="form-control" [(ngModel)]="model.name" required>
+            <input type="text" name="name" #name="ngModel" class="form-control" [(ngModel)]="model.name" required>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+              <div *ngIf="name.errors?.required">
+                Name is required
+              </div>
             </div>
             <div class="form-group">
                 <label>Description</label>
-                <input type="text" class="form-control" name="description" [(ngModel)]="model.description" required>
+                <input type="text" class="form-control" name="description" [(ngModel)]="model.description">
             </div>
             <div class="form-group">
                 <label>Date</label>
-                <input type="date" class="form-control" name="date" [(ngModel)]="model.date" required>
-            </div>
+                <input type="date" class="form-control" #date="ngModel" name="date" [(ngModel)]="model.date" required>
+                <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-danger">
+                  <div *ngIf="date.errors?.required">
+                    Date is required
+                  </div>
+                </div>
+              </div>
             <div class="form-group">
                 <label>Tags</label>
                 <input type="text" #tagsInput class="form-control" name="tags" [(ngModel)]="model.tags"
-                    (change)="slice(tagsInput.value)" required>
+                    (change)="slice(tagsInput.value)">
             </div>
             <div class="custom-file">
                 <label class="form-label" for="customFile">Default file input example</label>
                 <input #imageInput type="file" class="form-control" accept="image/*" id="customFile"
                     (change)="imageChoice($event)" name="image" />
             </div>
-            <button type="submit" class="btn btn-success">Save</button>
+            <button type="submit" [disabled]="!userForm.valid" class="btn btn-success">Save</button>
         </form>
     </div>
     <div *ngIf="!isModifyEnabled" class="card-footer "><a *ngFor="let tag of image.tags"

@@ -1,12 +1,1 @@
 .top-buffer { margin-top:20px; }
-
-.margin-left {
-    margin-right: 2px;
-}
-.center-div{
-    margin: 0 auto;
-    width:80%; /* value of your choice which suits your alignment */
-    max-width: 1000px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}

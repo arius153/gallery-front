@@ -1,5 +1,40 @@
-/* .center {
-    display: flex;
-    justify-content: center;
-  }
-   */
+::ng-deep .ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid #42A948;
+}
+   
+::ng-deep .ng-invalid:not(form) {
+  border-left: 5px solid #a94442;
+}
+   
+::ng-deep .center_div {
+  margin: 0 auto;
+  width: 80%;
+}
+   
+::ng-deep .top-buffer {
+  margin-top: 10px;
+ }
+  
+::ng-deep .outer-box {
+  margin-top: 20px;
+  padding: 10px;
+}
+   
+::ng-deep .center-div{
+  margin: 0 auto;
+  width:80%; /* value of your choice which suits your alignment */
+  max-width: 1000px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+   
+::ng-deep .margin-left {
+    margin-right: 2px;
+}
+
+::ng-deep .single-card-page {
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
+}
