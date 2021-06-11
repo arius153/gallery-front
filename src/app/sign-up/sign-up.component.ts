@@ -14,6 +14,7 @@ export class SignUpComponent {
 
   model = new SignUpInfo;
   loginInfo = new LoginInfo;
+  responseMessage?: string;
 
   constructor(private authService: AutheticationService, private router: Router) { }
 
@@ -22,9 +23,13 @@ export class SignUpComponent {
     this.loginInfo.password = this.model.password;
     this.loginInfo.username = this.model.username;
     this.authService.register(this.loginInfo).subscribe(x => {
-      this.router.navigate(['login']);
+      this.responseMessage = x;
+      //this.router.navigate(['login']);
     });
+    form.reset();
   }
+
+
 
 
 }

@@ -7,8 +7,7 @@
     </button>
     <div *ngIf="authService.isLoggedIn()" class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" routerLink="/images">All Pictures</a>
-        <a class="nav-link" routerLink="/search">Search</a>
+        <a class="nav-link active" routerLink="/search">Pictures</a>
         <a class="nav-link" routerLink="/addimage">Add Picture</a>
         <button class="btn btn-pasive" (click)="logOut()">log out</button>
       </div>

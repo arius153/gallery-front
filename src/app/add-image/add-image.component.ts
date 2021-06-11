@@ -43,8 +43,7 @@ export class AddImageComponent   {
   }
 
   slice(tags: string): void {
-    this.model.tags = tags.split(/[ ,]+/);
-
+    this.model.tags = Array.from(new Set(tags.split(/[ ,]+/)))
 
   }
 

@@ -4,7 +4,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ImagesComponent } from './images/images.component';
 import { ImageDetailComponent } from './image-detail/image-detail.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ImagesSearchComponent } from './images-search/images-search.component';
@@ -15,13 +14,13 @@ import { AuthInterceptor } from './_helpers/auth.interceptor';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { UsernameTakenDirective } from './_directives/username-taken.directive';
 import { PasswordMatchDirective } from './_directives/password-match.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ImagesComponent,
     ImageDetailComponent,
     NavigationComponent,
     ImagesSearchComponent,
@@ -36,7 +35,8 @@ import { PasswordMatchDirective } from './_directives/password-match.directive';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MatPaginatorModule
+    MatPaginatorModule, 
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],

@@ -11,16 +11,21 @@ import { AutheticationService } from '../_services/authetication.service';
 })
 export class LogInComponent {
 
+  showErrorMessage = false;
+
   model = new LoginInfo;
 
   constructor(private authService: AutheticationService, private router: Router) { }
 
-  onSubmit(form: NgForm) {
-
+  onSubmit(form: NgForm, event: Event) {
+    event.preventDefault();
     if (form.valid)
     {
       this.authService.login(this.model).subscribe(x => {
-        this.router.navigate(['images']);
+        this.router.navigate(['search']);
+      }, (error) => {
+        this.showErrorMessage = true;
+
       });
     }
     

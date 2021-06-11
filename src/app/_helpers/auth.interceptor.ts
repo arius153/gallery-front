@@ -24,7 +24,6 @@ export class AuthInterceptor implements HttpInterceptor {
         return this.handle401Error(request, next);
       } else {
         this.authService.logout();
-        location.reload();
         return throwError(error);
       }
       

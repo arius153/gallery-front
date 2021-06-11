@@ -22,14 +22,15 @@ export class AutheticationService {
   constructor(private http: HttpClient, private router: Router) { }
 
   register(userInfo: LoginInfo) {
-    return this.http.post(this.authUrl + "/signup", userInfo, { responseType: 'text' });
+    return this.http.post(this.authUrl + "/signup", userInfo, { responseType: 'text' }).pipe(catchError(this.handleError("Registration", "Could not register!")));
   }
 
   login(userInfo: LoginInfo) {
     return this.http.post(this.authUrl + "/login", userInfo).pipe(
       tap(res => {
         this.setSession(res);
-      })
+      },
+      catchError(this.handleError<any>("Loging in", "")))
     );
   }
 
@@ -101,26 +102,15 @@ export class AutheticationService {
   private getJwtToken() {
     return localStorage.getItem("id_token");
   }
-
-
-  private handleRefreshError<T>(operation = 'refresh', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      // console.log(`${operation} failed: ${error.message}`);
-      this.logout();
-      location.reload();
-      return of(result as T);
-    };
-  }
   
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+      // // TODO: send the error to remote logging infrastructure
+      // console.error(error); // log to console instead
 
-      // // TODO: better job of transforming error for user consumption
-      // console.log(`${operation} failed: ${error.message}`);
+      // TODO: better job of transforming error for user consumption
+      console.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);

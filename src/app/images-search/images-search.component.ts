@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 import { ImageResponseDTO } from '../_models/image-response-dto';
 import { AutheticationService } from '../_services/authetication.service';
 import { ImageService } from '../_services/image.service';
@@ -18,16 +18,20 @@ export class ImagesSearchComponent implements OnInit {
   images$!: Observable<ImageResponseDTO[]>;
   private searchTerms = new Subject<string>();
   term?:string; 
+  length: number = 0;
+  pageSize: number = 12;
+  pageIndex: number = 0;
+  
   
   constructor(private imageService: ImageService, public authService: AutheticationService, private route: ActivatedRoute,
     private location: Location) { }
 
 
-
   search(term: string): void {
     this.term = term;
+    this.pageIndex = 0;
     this.searchTerms.next(term);
-    this.imageService.getCount(term).subscribe(x => this.length = x);
+    this.getImageCount(term);
   }
 
   ngOnInit(): void {
@@ -35,33 +39,37 @@ export class ImagesSearchComponent implements OnInit {
 
     this.images$ = this.searchTerms.pipe(
       debounceTime(300),
-      distinctUntilChanged(),
-      switchMap((term: string) => this.imageService.searchImages(term))
+      //distinctUntilChanged(),
+      switchMap((term: string) => this.imageService.searchImages(term, this.pageIndex))
     );
 
     const searchParam = String(this.route.snapshot.paramMap.get('searchParam'));
     if (searchParam != "null")
     {
       setTimeout(() => this.search(searchParam), 0);
+      this.getImageCount(searchParam);
+    } else {
+      setTimeout(() => this.search(""), 0);
+      this.getImageCount("");
     }
   }
 
   delete(image: ImageResponseDTO): void {
     this.imageService.deleteImage(image.id).subscribe();
+    this.length -= 1;
+    this.searchTerms.next(this.term);
   }
 
-  // MatPaginator Inputs
-  length = 0;
-  pageSize = 12;
- 
+  pageChange(event: PageEvent)
+  {
+    this.pageIndex = event.pageIndex;
+    this.searchTerms.next(this.term);
+  }
 
-  // MatPaginator Output
-  pageEvent?: PageEvent;
-
-
-  pageChange(event: PageEvent) {
-    this.pageEvent = event;
-    this.images$ = this.imageService.getImages(event.pageIndex, this.term);
+  getImageCount(term?: string) {
+    this.imageService.getCount(term).subscribe(imageCount => {
+      this.length = imageCount;
+    })
   }
 
 }

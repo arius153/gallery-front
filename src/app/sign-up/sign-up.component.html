@@ -58,5 +58,8 @@
             </div>
         </div>
         <button type="submit" class="btn btn-success top-buffer" [disabled]="!userForm.valid">Sign up</button>
+        <div *ngIf="responseMessage" class="alert alert-success">
+            {{responseMessage}}
+        </div>
     </form>
 </div>

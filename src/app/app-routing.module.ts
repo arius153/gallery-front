@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ImagesComponent } from './images/images.component';
 import { ImageDetailComponent } from './image-detail/image-detail.component';
 import { ImagesSearchComponent } from './images-search/images-search.component';
 import { AddImageComponent } from './add-image/add-image.component';
@@ -10,7 +9,6 @@ import { AuthGuard } from './_helpers/auth.guard';
 
 
 const routes: Routes = [
-  { path: 'images', component: ImagesComponent, canActivate: [AuthGuard]},
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'images/:id', component: ImageDetailComponent, canActivate: [AuthGuard]},
   { path: 'search', component: ImagesSearchComponent, canActivate: [AuthGuard] },
